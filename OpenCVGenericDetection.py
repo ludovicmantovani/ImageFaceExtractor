@@ -3,6 +3,10 @@
 
 import cv2
 
+FACE_FRONTAL_CLASSIFIER_FILE = "./classifier/haarcascade_frontalface_default.xml"
+FACE_PROFILE_CLASSIFIER_FILE = "./classifier/haarcascade_profileface.xml"
+BODY_FULL_CLASSIFIER_FILE = "./classifier/haarcascade_fullbody.xml"
+
 class OpenCVGenericDetection:
 
     def __init__(self, image_path, archive_folder = '/tmp/', debug = False):
