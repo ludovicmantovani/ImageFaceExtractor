@@ -11,6 +11,8 @@ FACE_FRONTAL_CLASSIFIER_FILE = "./classifier/haarcascade_frontalface_default.xml
 FACE_PROFILE_CLASSIFIER_FILE = "./classifier/haarcascade_profileface.xml"
 BODY_FULL_CLASSIFIER_FILE = "./classifier/haarcascade_fullbody.xml"
 
+MAX_SIZE = 800  #Taille maximale de l'image en pixels
+
 class OpenCVGenericDetection:
 
     def __init__(self, image_path, archive_folder = '/tmp/', debug = False):
@@ -48,6 +50,21 @@ class OpenCVGenericDetection:
         self.frame = cv2.imread(image_path)
         logging.info("Résolution de l'image : {0}x{1}".format(self.frame.shape[0], self.frame.shape[1]))
 
+        #Réduction de la taille de l'image si besoin
+        ratio = 1
+        if self.frame.shape[1] > MAX_SIZE or self.frame.shape[0] > MAX_SIZE:
+            if self.frame.shape[1] / MAX_SIZE > self.frame.shape[0] / MAX_SIZE:
+                ratio = float(self.frame.shape[1]) / MAX_SIZE
+            else:
+                ratio = float(self.frame.shape[0]) / MAX_SIZE
+        if ratio !=1:
+            newsize = (
+                int(self.frame.shape[1] / ratio),
+                int(self.frame.shape[0] / ratio)
+            )
+            self.frame = cv2.resize(self.frame, newsize)
+            logging.info("Redimensionnement de l'image : {0}x{1}".format(self.frame.shape[0], self.frame.shape[1]))
+        
         #Affichage de l'image (si debug)
         if self.debug:
             cv2.imshow("preview", self.frame)
