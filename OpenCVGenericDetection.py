@@ -5,7 +5,7 @@ import os
 import sys
 import cv2
 import logging
-
+import datetime
 
 FACE_FRONTAL_CLASSIFIER_FILE = "./classifier/haarcascade_frontalface_default.xml"
 FACE_PROFILE_CLASSIFIER_FILE = "./classifier/haarcascade_profileface.xml"
@@ -40,6 +40,9 @@ class OpenCVGenericDetection:
 
         #Initialisation du classifier
         self.set_classifier()
+
+        #Création du préfix de nomage des images
+        self.prefix = "{0}_{1}".format(datetime.datetime.now().strftime("%Y%m%d-%H%M%S-%f"), self.__class__)
 
     def set_classifier(self):
         """ Méthode à surcharger
