@@ -18,4 +18,5 @@ if __name__ == '__main__':
         )
     faceFrontalClass.find_items()
     faceFrontalClass.extract_items_frames()
+    faceFrontalClass.archive_with_items()
 

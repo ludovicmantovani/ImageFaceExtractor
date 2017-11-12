@@ -147,6 +147,23 @@ class OpenCVGenericDetection:
         pass
 
     def archive_with_items(self):
-        """ Ecrit dans le répertoire d'archive la frame complète avec les carrés dessinés autour des visages détectés
+        """ Ecrit dans le répertoire d'archive la frame complète avec les carrés dessinés autour des items détectés
         """
-        pass
+        logging.info("Archive l'image aves les items trouvés...")
+        #Dessine un carré autour de chaque item
+        for f in self.items:
+            x, y, w, h = f
+            cv2.rectangle(self.frame, (x, y), (x+w, y+h), (0,255,0), 3)
+
+        #Ajout de la date et l'heure à l'image
+        cv2.putText(self.frame, datetime.datetime.now().strftime("%c"), (5, 25), cv2.FONT_HERSHEY_SIMPLEX, 0.8, (255, 255, 255), 3)
+
+        #Affichage de l'image avant archivage (si debug)
+        if self.debug:
+            cv2.imshow("preview", self.frame)
+            cv2.waitKey()
+
+        #Ecriture du fichier
+        archive_full_name = "{0}_full.jpg".format(self.prefix)
+        logging.info("Nom du fichier à archiver : {0}".format(archive_full_name))
+        cv2.imwrite(os.path.join(self.archive_folder, archive_full_name), self.frame)
