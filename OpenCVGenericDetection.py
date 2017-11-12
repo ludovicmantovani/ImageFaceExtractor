@@ -44,6 +44,15 @@ class OpenCVGenericDetection:
         #Création du préfix de nomage des images
         self.prefix = "{0}_{1}".format(datetime.datetime.now().strftime("%Y%m%d-%H%M%S-%f"), self.__class__)
 
+        #Chargement de l'image dans une frame
+        self.frame = cv2.imread(image_path)
+        logging.info("Résolution de l'image : {0}x{1}".format(self.frame.shape[0], self.frame.shape[1]))
+
+        #Affichage de l'image (si debug)
+        if self.debug:
+            cv2.imshow("preview", self.frame)
+            cv2.waitKey()
+
     def set_classifier(self):
         """ Méthode à surcharger
         """
