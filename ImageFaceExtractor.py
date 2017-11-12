@@ -1,8 +1,8 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-import cv2
+import OpenCVGenericDetection
 
 if __name__ == '__main__':
-    pass
+    genericClass = OpenCVGenericDetection.OpenCVGenericDetection('')
 
