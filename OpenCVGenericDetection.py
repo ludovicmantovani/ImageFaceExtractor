@@ -1,7 +1,11 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
+import os
+import sys
 import cv2
+import logging
+
 
 FACE_FRONTAL_CLASSIFIER_FILE = "./classifier/haarcascade_frontalface_default.xml"
 FACE_PROFILE_CLASSIFIER_FILE = "./classifier/haarcascade_profileface.xml"
@@ -15,7 +19,16 @@ class OpenCVGenericDetection:
             @archive_folder : répertoire d'archive
             @debug : si True, affichage des images dans une fenêtre
         """
-        pass
+        if image_path == '' or ( not os.path.isfile(image_path)):
+            logging.error("Le chemin de l'image [{0}] n'est pas valide.".format(image_path))
+            sys.exit(1)
+        else:
+            logging.info("Image : {0}".format(image_path))
+        if archive_folder == '' or ( not os.path.isdir(archive_folder)):
+            logging.error("Le chemin du répertoire d'archive [{0}] n'est pas valide.".format(archive_folder))
+            sys.exit(1)
+        else:
+            logging.info("Archive : {0}".format(archive_folder))
 
     def set_classifier(self):
         """ Méthode à surcharger
