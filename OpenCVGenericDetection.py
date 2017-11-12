@@ -19,6 +19,7 @@ class OpenCVGenericDetection:
             @archive_folder : répertoire d'archive
             @debug : si True, affichage des images dans une fenêtre
         """
+        #Vérification validité chemin image et répertoire d'archive
         if image_path == '' or ( not os.path.isfile(image_path)):
             logging.error("Le chemin de l'image [{0}] n'est pas valide.".format(image_path))
             sys.exit(1)
@@ -29,6 +30,13 @@ class OpenCVGenericDetection:
             sys.exit(1)
         else:
             logging.info("Archive : {0}".format(archive_folder))
+
+        #Initialisation des variables de la classe
+        self.image_path = image_path
+        self.archive_folder = archive_folder
+        self.debug = debug
+        self.items = []
+        self.items_frames = []
 
     def set_classifier(self):
         """ Méthode à surcharger
