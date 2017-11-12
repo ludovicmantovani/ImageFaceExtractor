@@ -38,6 +38,9 @@ class OpenCVGenericDetection:
         self.items = []
         self.items_frames = []
 
+        #Initialisation du classifier
+        self.set_classifier()
+
     def set_classifier(self):
         """ Méthode à surcharger
         """
