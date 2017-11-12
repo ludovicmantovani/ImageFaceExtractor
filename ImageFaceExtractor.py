@@ -16,4 +16,5 @@ if __name__ == '__main__':
         archive_folder = './archive/', 
         debug = True
         )
+    faceFrontalClass.find_items()
 

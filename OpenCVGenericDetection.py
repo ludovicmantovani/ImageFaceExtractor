@@ -13,6 +13,8 @@ BODY_FULL_CLASSIFIER_FILE = "./classifier/haarcascade_fullbody.xml"
 
 MAX_SIZE = 800  #Taille maximale de l'image en pixels
 
+DOWNSCALE = 1.1
+
 class OpenCVGenericDetection:
 
     def __init__(self, image_path, archive_folder = '/tmp/', debug = False):
@@ -76,9 +78,20 @@ class OpenCVGenericDetection:
         self.classifier = None
 
     def find_items(self):
-        """ Trouver les items dans une frame
+        """ Trouver les items dans une frame.
+            Valorise self.items en tant que liste contenant les coordonnées des visages au format (x, y, h, w).
+            Exemple :
+                        [[ 483 137 47 47 ]
+                         [ 357 152 46 46 ]
+                         ...
+                         [ 126 167 51 51 ]]
         """
-        pass
+        logging.info("Recherche des items...")
+        #Application du classifier sur la frame
+        items = self.classifier.detectMultiScale(self.frame, scaleFactor = DOWNSCALE, minNeighbors = 3)
+        logging.info("Nombre d'items : '{0}'".format(len(items)))
+        logging.info("Items = \n{0}".format(items))
+        self.items = items
 
     def extract_items_frames(self):
         """ Extraire les frames des items de la frame complète
