@@ -100,6 +100,6 @@ ENV/
 # mypy
 .mypy_cache/
 
-#Projetc test folder
+#Project test folder
 /img
 /archive
