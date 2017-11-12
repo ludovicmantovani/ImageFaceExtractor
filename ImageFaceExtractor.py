@@ -17,4 +17,5 @@ if __name__ == '__main__':
         debug = True
         )
     faceFrontalClass.find_items()
+    faceFrontalClass.extract_items_frames()
 

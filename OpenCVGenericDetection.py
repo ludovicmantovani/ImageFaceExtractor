@@ -94,9 +94,39 @@ class OpenCVGenericDetection:
         self.items = items
 
     def extract_items_frames(self):
-        """ Extraire les frames des items de la frame complète
+        """ Extraire les frames des items de la frame complète.
+            Valorise self.items_frames en tant que liste des frames et coordonnées.
+            Exemple :
+                        [
+                            {   "frame" : ...,
+                                "x" : ...,
+                                "y" : ...,
+                                "w" : ...,
+                                "h" : ...
+                            },
+                            { ... },
+                            ...
+                        ]
         """
-        pass
+        logging.info("Extraction des frames des items ('{0}')".format(len(self.items)))
+        items_frames = []
+        #Pour chaque item
+        for f in self.items:
+            #on extrait sa sous-frame
+            x, y, w, h = f
+            item_frame = self.frame[y:y+h, x:x+w]
+            items_frames.append({
+                                    "frame" : item_frame,
+                                    "x" : x,
+                                    "y" : y,
+                                    "w" : w,
+                                    "h" : h
+                                })
+            #Affichage des items (si debug)
+            if self.debug:
+                cv2.imshow("preview", item_frame)
+                cv2.waitKey()
+        self.items_frames = items_frames
 
     def get_items_frames(self, grayscale=False):
         """ Retourne les frames des items et leurs coordonnées dans une liste
