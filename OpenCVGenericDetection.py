@@ -71,9 +71,9 @@ class OpenCVGenericDetection:
             cv2.waitKey()
 
     def set_classifier(self):
-        """ Méthode à surcharger
+        """ Méthode à surcharger (selection du classifier)
         """
-        pass
+        self.classifier = None
 
     def find_items(self):
         """ Trouver les items dans une frame
