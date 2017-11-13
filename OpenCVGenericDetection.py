@@ -132,7 +132,14 @@ class OpenCVGenericDetection:
         """ Retourne les frames des items et leurs coordonnées dans une liste
             @grayscale : Si True, retourne les frames en niveau de gris
         """
-        pass
+        if grayscale == False:
+            return self.items_frames
+
+        items_frames = []
+        for item_frame in self.items_frames:
+            item_frame["frame"] = cv2.cvtColor(item_frame["frame"], cv2.COLOR_BGR2GRAY)
+            items_frames.append(item_frame)
+        return items_frames
 
     def add_label(self, text, x, y):
         """ Ajout d'un label sur la frame complète
