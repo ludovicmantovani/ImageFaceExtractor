@@ -146,7 +146,9 @@ class OpenCVGenericDetection:
             @text : texte à afficher
             @x, y : coordonnées du texte à afficher
         """
-        pass
+        if y > 11:
+            y = y - 5
+        cv2.putText(self.frame, text, (x,y), cv2.FONT_HERSHEY_SIMPLEX, 0.8, (0,255,0), 2)
 
     def archive_items_frames(self):
         """ Ecrit dans le répertoire d'archive chaque frame de chaque item en tant q'une image
