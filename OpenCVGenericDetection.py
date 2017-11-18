@@ -153,7 +153,15 @@ class OpenCVGenericDetection:
     def archive_items_frames(self):
         """ Ecrit dans le répertoire d'archive chaque frame de chaque item en tant q'une image
         """
-        pass
+        logging.info("Archive les items ('{0}' à archiver)...".format(len(self.items_frames)))
+        idx = 0
+        # Pour chaque item, on le sauve dans un fichier
+        for item_frame in self.items_frames:
+            a_frame = item_frame["frame"]
+            image_name = "{0}_item_{1}.jpg".format(self.prefix, idx)
+            logging.info("Archive un item dans le fichier: '{0}'".format(image_name))
+            cv2.imwrite(os.path.join(self.archive_folder, image_name), a_frame)
+            idx += 1
 
     def archive_with_items(self):
         """ Ecrit dans le répertoire d'archive la frame complète avec les carrés dessinés autour des items détectés
